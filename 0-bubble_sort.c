@@ -25,9 +25,9 @@ void bubble_sort(int *array, size_t size)
 				array[i - 1] = temp;
 				swapped = 1;
 			}
+			if (swapped == 1)
+				print_array(array, old_size);
 		}
-		if (swapped == 1)
-			print_array(array, old_size);
 		size--;
 	} while (swapped == 1);
 }
