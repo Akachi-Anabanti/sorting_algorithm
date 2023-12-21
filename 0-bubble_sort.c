@@ -30,5 +30,5 @@ void bubble_sort(int *array, size_t size)
 				print_array(array, old_size);
 		}
 		size--;
-	} while (size);
+	} while (size && array);
 }
