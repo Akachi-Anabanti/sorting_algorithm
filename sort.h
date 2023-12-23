@@ -22,6 +22,11 @@ typedef struct listint_s
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
 
+
+/*helper function*/
+void swap(int *, int *);
+void sorter(int *array, int, int, size_t);
+int partitioner(int *array, int, int, size_t);
 /*task function prototypes*/
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
