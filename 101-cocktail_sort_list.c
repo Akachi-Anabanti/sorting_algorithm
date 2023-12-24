@@ -6,18 +6,21 @@
  * @list: The linked list
  * @current: the current node
  */
-void swap_node_up(listint_t **list, listint_t *current)
+void swap_node_up(listint_t **list, listint_t **current)
 {
-	if (current->prev)
-		current->prev->next = current->next;
+	listint_t *temp = (*current)->next;
+
+	if ((*current)->prev)
+		(*current)->prev->next = temp;
 	else
-		*list = current->next;
-	current->next->prev = current->prev;
-	current->prev = current->next;
-	current->next = current->next->next;
-	if (current->next)
-		current->next->prev = current;
-	current->prev->next = current;
+		*list = temp;
+	temp->prev = (*current)->prev;
+	(*current)->prev = temp;
+	(*current)->next = temp->next;
+	if (temp->next)
+		temp->next->prev = *current;
+	temp->next = *current;
+	*current = temp;
 }
 /**
  * swap_node_down - swaps nodes while traversing down the linked list
@@ -25,18 +28,21 @@ void swap_node_up(listint_t **list, listint_t *current)
  * @list: The linked list
  * @current: Current node
  */
-void swap_node_down(listint_t **list, listint_t *current)
+void swap_node_down(listint_t **list, listint_t **current)
 {
-	current->prev->next = current->next;
-	if (current->next)
-		current->next->prev = current->prev;
-	if (current->prev->prev)
-		current->prev->prev->next = current;
+	listint_t *temp = (*current)->prev;
+
+	if (temp->prev)
+		temp->prev->next = *current;
 	else
-		*list = current;
-	current->next = current->prev;
-	current->prev = current->prev->prev;
-	current->next->prev = current;
+		*list = *current;
+	(*current)->prev = temp->prev;
+	temp->prev = *current;
+	temp->next = (*current)->next;
+	if ((*current)->next)
+		(*current)->next->prev = temp;
+	(*current)->next = temp;
+	*current = temp;
 }
 /**
  * cocktail_sort_list - Cocktail sort algorithm function
@@ -50,23 +56,26 @@ void cocktail_sort_list(listint_t **list)
 
 	if (!(*list) || !list || !(*list)->next)
 		return;
-	while (swapped)
+	while (swapped == 1)
 	{
 		swapped = 0;
 		for (current = *list; current && current->next; current = current->next)
 		{
 			if (current->n > current->next->n)
 			{
-				swap_node_up(list, current);
+				swap_node_up(list, &current);
 				swapped = 1;
 				print_list(*list);
 			}
 		}
+		if (swapped == 0)
+			break;
+		swapped = 0;
 		for (; current && current->prev; current = current->prev)
 		{
 			if (current->n < current->prev->n)
 			{
-				swap_node_down(list, current);
+				swap_node_down(list, &current);
 				swapped = 1;
 				print_list(*list);
 			}
