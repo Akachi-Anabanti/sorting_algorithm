@@ -62,7 +62,15 @@ void td_split_merge(int *arrA, int ibegin, int iend, int *arrB)
 void merge_sort(int *array, size_t size)
 {
 	size_t i;
-	int *arrB = malloc(sizeof(int) * size);
+	int *arrB;
+
+	if (array == NULL || size < 1)
+		return;
+
+	arrB = malloc(sizeof(int) * size);
+
+	if (arrB == NULL)
+		return;
 
 	for (i = 0; i < size; i++)
 		arrB[i] = array[i];
