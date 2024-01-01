@@ -29,6 +29,9 @@ void sorter(int *array, int, int, size_t);
 int partitioner(int *array, int, int, size_t);
 void swap_node_up(listint_t **, listint_t **);
 void swap_node_down(listint_t **, listint_t **);
+int max(int *, int);
+void td_split_merge(int *arrA, int ibegin, int iend, int *arrB);
+void merger(int *arrA, int ibegin, int imid, int iend, int *arrB);
 
 /*task function prototypes*/
 void bubble_sort(int *array, size_t size);
