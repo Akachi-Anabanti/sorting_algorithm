@@ -76,6 +76,6 @@ void merge_sort(int *array, size_t size)
 		arrB[i] = array[i];
 	td_split_merge(array, 0, size, arrB);
 	for (i = 0; i < size; i++)
-                array[i] = arrB[i];
+		array[i] = arrB[i];
 	free(arrB);
 }
